@@ -16,8 +16,145 @@
 	<body>
 		<div class="reveal">
 			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
+				<section data-background-color="aquamarine">
+					<h1>Million.js</h1>
+					<img src="examples/assets/default-og.png">
+				  </section>
+				  <section data-background-color="aquamarine">
+					<h3>Agenda</h3>
+					<ul>
+						<li>The beginning of Angular.js and dirty checking mechanism</li>
+						<li>React and the Virtual DOM</li>
+						<li>Virtual DOM - the blessing and the curse</li>
+						<li>Million.js what is it and why is it up to 70% faster?</li>
+						<li>The pros and cons of using Million.js</li>
+						<li>Summary and take aways</li>
+					</ul>
+				  </section>
+				  <section data-background-color="rgb(70, 70, 255)">
+					<h3>Angular.js was introduced</h3>
+					<img src="examples/assets/AngularJS_logo.svg.png" />
+				  </section>
+				  <section>
+					<pre><code data-trim data-noescape>
+						function MyController($scope) {
+
+							$scope.myVar = 1;
+						
+							$scope.$watch('myVar', function() {
+								alert('hey, myVar has changed!');
+							});
+						
+							$scope.buttonClicked = function() {
+								$scope.myVar = 2; // This will trigger $watch expression to kick in
+							};
+						}
+					</code></pre>
+				  </section>
+				  <section data-background-color="rgb(70, 70, 255)">
+					<h3>Angular Dirty Checking mechanism workflow</h3>
+				  </section>
+				  <section data-background-color="white">
+					<img src="examples/assets/0hPXk.png" />
+				  </section>
+				  <section data-background-color="white">
+					<h5>How can we detect state changes even better and faster?</h5>
+					<img src="https://thediffpodcast.com/assets/images/jordan-2c43ff762e625d49ea58424e3e74188a.jpg" style="height: 60vh" />
+				  </section>
+				  <section data-background-color="white">
+					<h5 style="font-weight: bold;">What if we create a complete tree representation of all html elements</h5>
+					<hr/>
+					<h6>And then only rerender the nodes that has changed?</h6>
+				  </section>
+				  <section data-background-color="white">
+					<p>Then when we update the state, we traverse the tree and see which node has changed, and then only update that specific node?</p>
+				  </section>
+				  <section data-background-color="white">
+					<h3>But how are we going to create such an representation?</h3>
+					<h5>We usually have all html and js in seperate files?</h5>
+				  </section>
+				  <section data-background-color="white">
+					<h3>What if we put HTML inside the JS files?</h3>
+					<iframe src="https://giphy.com/embed/26ufdipQqU2lhNA4g" width="480" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+				</section>
+				  <section data-background-color="white">
+					<h3>First reaction</h3>
+					<iframe src="https://giphy.com/embed/xUOwVfAF0apIQHyLQc" width="480" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/poptv-comedy-annalynne-mccord-xUOwVfAF0apIQHyLQc">via GIPHY</a></p>
+				  </section>
+				  <section data-background-color="white">
+					<h3>Current reaction</h3>
+					<iframe src="https://giphy.com/embed/XreQmk7ETCak0" width="480" height="360" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/retro-thumbs-up-XreQmk7ETCak0">via GIPHY</a></p>
+				  </section>
+				  <section data-background-color="white">
+					<h3>Virtual DOM</h3>
+					<img src="https://miro.medium.com/v2/resize:fit:1400/1*8OCCATi8_5HmWI1QpjrRNA.png" />
+				  </section>
+				  <section data-background-color="white">
+					<h3>What is the con of Virtual DOM?</h3>
+					<ul>
+						<li>New way of thinking - Declarative vs imperative</li>
+						<li>Slow performance when having many nodes</li>				
+						<ul>
+							<li>useMemo</li>
+							<li>useCallback</li>
+							<li>Virtualization</li>
+						</ul>
+		
+					</ul>
+				  </section>
+				  <section data-background-color="white">
+					<h3>Virtual DOM is pure overhead</h3>
+					<p>Article by Rich Harris</p>
+					<img src="https://svelte.dev/media/rethinking-best-practices.jpg">
+				  </section>
+				  <section data-background-color="white">
+					<h3>The Block Virtual DOM</h3>
+					<ol>
+						<li>Static Analysis: The virtual DOM is analyzed to extract dynamic parts of the tree into a "Edit Map," or the list of the "edits" (mappings) of the dynamic parts of the virtual DOM to the state.</li>
+						<li>Dirty Checking: The state (not the virtual DOM tree) is diffed to determine what has changed. If the state has changed, the DOM is updated directly via the Edit Map.</li>
+					</ol>
+				  </section>
+				  <section data-background-color="white">
+					<h3>Diff the data, not the DOM.</h3>
+					<p>Why? The size of data is generally much smaller than the size of the DOM. It also can be much simpler to diff data values than to diff full DOM nodes.</p>
+				  </section>
+				  <section data-background-color="white">
+					<h3>Static analysis</h3>
+					<img src="examples/assets/blockdom-1.png">
+				  </section>
+				  <section data-background-color="white">
+					<h3>Dirty checking</h3>
+					<img src="examples/assets/blockdom-2.png">
+				  </section>
+				  <section data-background-color="white">
+					<h3>Is million.js effective?</h3>
+					<img src="examples/assets/download (1).png">
+				  </section>
+				  <section data-background-color="white">
+					<h3>When to use million.js?</h3>
+					<img src="examples/assets/Screenshot 2023-06-29 at 07.34.05.png">
+				  </section>
+				  <section data-background-color="white">
+					<h3>How to use million.js?</h3>
+					<img src="examples/assets/Screenshot 2023-06-29 at 07.33.26.png">
+				  </section>
+				  <section data-background-color="white">
+					<h3>When not to use million.js?</h3>
+					<img src="examples/assets/Screenshot 2023-06-29 at 07.34.17.png">
+				  </section>
+				  <section data-background-color="white">
+					<h3>Summary / takeaway</h3>
+					<ul>
+						<li>The future is a mix of virtual dom/blockdom vs compilers</li>
+						<li>The virtual dom is fast, but has slow performance with many nodes</li>
+						<li>million.js can improve the performance</li>
+						<li>Million.js is great with alot of static content</li>
+						<li>Million.js is slow with little static content and lots of dynamic data</li>
+					</ul>
+				  </section>
+
+
+				  
 			</div>
 		</div>
 
